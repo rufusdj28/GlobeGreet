@@ -1,0 +1,21 @@
+name: GlobeGreet CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: List project files
+        run: |
+          echo "Validating project structure..."
+          ls -la
+
+      - name: Success message
+        run: echo "CI Pipeline executed successfully!"
