@@ -10,21 +10,32 @@
 
 /* Use CSS variables for easier theme management */
 :root {
-    --primary-color: #3498db; /* Blue */
-    --primary-hover-color: #2980b9; /* Darker Blue */
-    --secondary-color: #2c3e50; /* Dark Grey Blue */
-    --background-light: #ecf0f1; /* Very Light Grey */
-    --background-card: #ffffff; /* White */
-    --text-color: #34495e; /* Darker Text */
-    --text-light: #7f8c8d; /* Light Grey Text */
+    --primary-color: #3498db;
+    /* Blue */
+    --primary-hover-color: #2980b9;
+    /* Darker Blue */
+    --secondary-color: #2c3e50;
+    /* Dark Grey Blue */
+    --background-light: #ecf0f1;
+    /* Very Light Grey */
+    --background-card: #ffffff;
+    /* White */
+    --text-color: #34495e;
+    /* Darker Text */
+    --text-light: #7f8c8d;
+    /* Light Grey Text */
     --border-radius: 10px;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --error-color: #e74c3c; /* Red */
-    --error-background: #fde0df; /* Light Red */
+    --error-color: #e74c3c;
+    /* Red */
+    --error-background: #fde0df;
+    /* Light Red */
 }
 
 /* Universal box-sizing for easier layout calculations */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -36,9 +47,12 @@ body {
     background-color: var(--background-light);
     color: var(--text-color);
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    min-height: 100vh; /* Ensure body takes at least full viewport height */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    min-height: 100vh;
+    /* Ensure body takes at least full viewport height */
     line-height: 1.6;
 }
 
@@ -52,10 +66,12 @@ body {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     padding: 30px;
-    max-width: 600px; /* Max width for a pleasant reading experience */
+    max-width: 600px;
+    /* Max width for a pleasant reading experience */
     width: 100%;
     text-align: center;
-    margin: auto; /* Ensures centering if flexbox not fully used or on smaller screens */
+    margin: auto;
+    /* Ensures centering if flexbox not fully used or on smaller screens */
 }
 
 /* Main heading style */
@@ -85,18 +101,22 @@ h1 {
     padding: 12px 25px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transitions */
     margin-bottom: 30px;
-    outline: none; /* Remove outline on focus for aesthetics */
+    outline: none;
+    /* Remove outline on focus for aesthetics */
 }
 
 #get-info-button:hover {
     background-color: var(--primary-hover-color);
-    transform: translateY(-2px); /* Slight lift effect on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect on hover */
 }
 
 #get-info-button:active {
-    transform: translateY(0); /* Press down effect on click */
+    transform: translateY(0);
+    /* Press down effect on click */
 }
 
 /* ---------------------------------- */
@@ -104,12 +124,15 @@ h1 {
 /* ---------------------------------- */
 
 .info-card {
-    background-color: var(--background-light); /* Light background for cards */
+    background-color: var(--background-light);
+    /* Light background for cards */
     border-radius: var(--border-radius);
     padding: 20px;
-    margin-bottom: 20px; /* Space between cards */
+    margin-bottom: 20px;
+    /* Space between cards */
     text-align: left;
-    border: 1px solid #e0e0e0; /* Subtle border */
+    border: 1px solid #e0e0e0;
+    /* Subtle border */
 }
 
 .info-card h2 {
@@ -117,7 +140,8 @@ h1 {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 1.4em;
-    border-bottom: 1px solid #e0e0e0; /* Separator for heading */
+    border-bottom: 1px solid #e0e0e0;
+    /* Separator for heading */
     padding-bottom: 8px;
 }
 
@@ -132,11 +156,15 @@ h1 {
 /* ---------------------------------- */
 
 .flag-icon {
-    width: 40px; /* Standard flag width */
-    height: auto; /* Maintain aspect ratio */
-    vertical-align: middle; /* Align with text */
+    width: 40px;
+    /* Standard flag width */
+    height: auto;
+    /* Maintain aspect ratio */
+    vertical-align: middle;
+    /* Align with text */
     margin-right: 10px;
-    border: 1px solid #ccc; /* Subtle border for flags */
+    border: 1px solid #ccc;
+    /* Subtle border for flags */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
 }
@@ -152,7 +180,8 @@ h1 {
     padding: 10px;
     border-radius: var(--border-radius);
     margin-top: 25px;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     font-weight: bold;
     text-align: center;
     box-shadow: var(--box-shadow);
@@ -187,4 +216,29 @@ h1 {
     .info-card h2 {
         font-size: 1.2em;
     }
+}
+
+.landmark-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.toggle {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.dark-mode {
+    background: #1e1e1e;
+    color: white;
+}
+
+.dark-mode .container {
+    background: #2b2b2b;
+}
+
+.dark-mode .info-card {
+    background: #3a3a3a;
 }

@@ -1,48 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upgraded Location-Based Greeting & Culture Helper</title>
-    <!-- Link to our CSS file for styling the page -->
+    <title>Location Culture Helper</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- The main container for our application content -->
+
     <div class="container">
-        <h1>Welcome to the Upgraded Greeting & Culture Helper!</h1>
-        <p class="description">Click the button below to discover your location-based greeting and a cultural tidbit.</p>
 
-        <!-- Button to trigger the location and greeting detection -->
-        <button id="get-info-button">Get My Greeting & Culture Info!</button>
+        <h1>🌍 Smart Greeting & Culture Helper</h1>
 
-        <!-- Section to display location information, wrapped in a modern card UI -->
+        <label class="toggle">
+            Dark Mode
+            <input type="checkbox" id="checkbox">
+        </label>
+
+        <button id="get-info-button">
+            Get My Greeting & Culture Info
+        </button>
+
         <div class="info-card">
-            <h2>Your Location:</h2>
-            <!-- Image tag for the country flag -->
-            <img id="country-flag" src="" alt="Country Flag" class="flag-icon" style="display: none;">
-            <!-- Paragraphs to display specific location details. -->
-            <p id="location-city">City: Awaiting interaction...</p>
-            <p id="location-country">Country: Awaiting interaction...</p>
+            <h2>Your Location</h2>
+            <img id="country-flag" class="flag-icon" style="display:none;">
+            <p id="location-city"></p>
+            <p id="location-country"></p>
         </div>
 
-        <!-- Section to display the greeting, wrapped in a modern card UI -->
         <div class="info-card">
-            <h2>Local Greeting:</h2>
-            <p id="greeting">Awaiting interaction...</p>
+            <h2>Greeting</h2>
+            <p id="greeting"></p>
         </div>
 
-        <!-- Section to display cultural information, wrapped in a modern card UI -->
         <div class="info-card">
-            <h2>Cultural Tidbit:</h2>
-            <p id="culture">Awaiting interaction...</p>
+            <h2>About Your City</h2>
+            <p id="culture"></p>
         </div>
 
-        <!-- An element to display any error messages if something goes wrong -->
-        <div id="error-message" class="error-message" role="alert" aria-live="assertive"></div>
+        <div class="info-card">
+            <h2>Landmark</h2>
+            <p id="landmark-text"></p>
+            <img id="landmark-img" class="landmark-img">
+        </div>
+
+        <div id="error-message" class="error-message"></div>
+
     </div>
 
-    <!-- Link to our JavaScript file. -->
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
