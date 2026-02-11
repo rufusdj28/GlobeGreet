@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------
-    // Wikipedia fetch (single call)
+    // Wikipedia fetch
     // -----------------------------
     async function getWikiData(city) {
         try {
             const res = await fetch(
-                `https://en.wikipedia.org/api/rest_v1/page/summary/${city}`
+                `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(city)}`
             );
             if (!res.ok) return null;
             return await res.json();
@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
             countryFlagElement.style.display = "inline-block";
 
+            // 2️⃣ Call LIVE backend on Render
             const greetRes = await fetch(
-                `http://127.0.0.1:5000/greet?lat=${loc.latitude}&lon=${loc.longitude}`
+                `https://globegreet-backend.onrender.com/greet?lat=${loc.latitude}&lon=${loc.longitude}`
             );
-
 
             const greetData = await greetRes.json();
             greetingElement.textContent = greetData.message;
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     getInfoButton.addEventListener('click', getLocationAndGreeting);
 
     // -----------------------------
-    // Dark Mode Safe Setup
+    // Dark Mode
     // -----------------------------
     if (darkModeToggle) {
 
