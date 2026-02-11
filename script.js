@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const darkModeToggle = document.getElementById('checkbox');
     const body = document.body;
+    const speakBtn = document.getElementById('speak-btn');
+
 
     // -----------------------------
     // Error display helper
@@ -119,4 +121,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+});
+
+// -----------------------------
+// TEXT TO SPEECH
+// -----------------------------
+speakBtn.addEventListener("click", () => {
+
+    const text = greetingElement.textContent;
+    if (!text) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    // Try to match language
+    utterance.lang = navigator.language || "en-US";
+
+    speechSynthesis.speak(utterance);
 });

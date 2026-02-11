@@ -158,3 +158,23 @@ input:checked+.slider {
 input:checked+.slider:before {
     transform: translateX(24px);
 }
+
+.speak-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.speak-btn {
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.speak-btn:hover {
+    opacity: .85;
+}
