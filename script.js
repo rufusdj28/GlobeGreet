@@ -129,6 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // -----------------------------
 // TEXT TO SPEECH
 // -----------------------------
+// -----------------------------
+// TEXT TO SPEECH (Robust)
+// -----------------------------
 if (speakBtn) {
 
     speakBtn.addEventListener("click", () => {
@@ -136,19 +139,28 @@ if (speakBtn) {
         const text = greetingElement.textContent.trim();
 
         if (!text) {
-            alert("No greeting to speak yet!");
+            alert("Greeting not ready yet!");
             return;
         }
 
-        // Stop any current speech
+        // Stop any previous speech
         speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";
+
+        // Get available voices
+        const voices = speechSynthesis.getVoices();
+
+        if (voices.length > 0) {
+            utterance.voice = voices[0]; // Use first available voice
+        }
+
+        utterance.volume = 1;
+        utterance.rate = 1;
+        utterance.pitch = 1;
 
         speechSynthesis.speak(utterance);
     });
 
 }
-});
 
