@@ -132,6 +132,17 @@ document.addEventListener('DOMContentLoaded', () => {
 // -----------------------------
 // TEXT TO SPEECH (Robust)
 // -----------------------------
+// -----------------------------
+// TEXT TO SPEECH (FINAL FIX)
+// -----------------------------
+
+let availableVoices = [];
+
+// Load voices when ready
+speechSynthesis.onvoiceschanged = () => {
+    availableVoices = speechSynthesis.getVoices();
+};
+
 if (speakBtn) {
 
     speakBtn.addEventListener("click", () => {
@@ -143,24 +154,24 @@ if (speakBtn) {
             return;
         }
 
-        // Stop any previous speech
-        speechSynthesis.cancel();
-
         const utterance = new SpeechSynthesisUtterance(text);
 
-        // Get available voices
-        const voices = speechSynthesis.getVoices();
+        // Choose a decent voice
+        if (availableVoices.length > 0) {
 
-        if (voices.length > 0) {
-            utterance.voice = voices[0]; // Use first available voice
+            const preferred =
+                availableVoices.find(v => v.lang.startsWith("en")) ||
+                availableVoices[0];
+
+            utterance.voice = preferred;
         }
 
         utterance.volume = 1;
         utterance.rate = 1;
         utterance.pitch = 1;
 
+        speechSynthesis.cancel();
         speechSynthesis.speak(utterance);
     });
 
 }
-
