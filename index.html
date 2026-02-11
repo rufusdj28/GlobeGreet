@@ -4,47 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location Culture Helper</title>
+    <title>GlobeGreet</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
-
-        <h1>🌍 Smart Greeting & Culture Helper</h1>
-
-        <label class="toggle">
-            Dark Mode
+    <!-- Toggle Switch -->
+    <div class="toggle-wrapper">
+        <label class="switch">
             <input type="checkbox" id="checkbox">
+            <span class="slider"></span>
         </label>
+    </div>
 
-        <button id="get-info-button">
-            Get My Greeting & Culture Info
+    <div class="app">
+
+        <header>
+            <h1>GlobeGreet 🌍</h1>
+            <p class="subtitle">Discover local greetings & culture instantly</p>
+        </header>
+
+        <button id="get-info-button" class="main-btn">
+            Discover My Location
         </button>
 
-        <div class="info-card">
-            <h2>Your Location</h2>
-            <img id="country-flag" class="flag-icon" style="display:none;">
-            <p id="location-city"></p>
-            <p id="location-country"></p>
-        </div>
+        <section class="grid">
 
-        <div class="info-card">
-            <h2>Greeting</h2>
-            <p id="greeting"></p>
-        </div>
+            <div class="card">
+                <h2>📍 Location</h2>
+                <img id="country-flag" class="flag-icon" style="display:none;">
+                <p id="location-city"></p>
+                <p id="location-country"></p>
+            </div>
 
-        <div class="info-card">
-            <h2>About Your City</h2>
-            <p id="culture"></p>
-        </div>
+            <div class="card">
+                <h2>🗣 Greeting</h2>
+                <p id="greeting"></p>
+            </div>
 
-        <div class="info-card">
-            <h2>Landmark</h2>
-            <p id="landmark-text"></p>
-            <img id="landmark-img" class="landmark-img">
-        </div>
+            <div class="card">
+                <h2>📖 Culture Snapshot</h2>
+                <p id="culture"></p>
+            </div>
+
+            <div class="card">
+                <h2>🏛 Landmark</h2>
+                <p id="landmark-text"></p>
+                <img id="landmark-img" class="landmark-img">
+            </div>
+
+        </section>
 
         <div id="error-message" class="error-message"></div>
 

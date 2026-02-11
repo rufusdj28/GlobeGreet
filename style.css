@@ -1,244 +1,160 @@
-/*
- * CSS Styling for the Upgraded Location-Based Greeting & Culture Helper web app.
- * This file defines the visual presentation of our HTML elements,
- * including modern card UI, centered layout, and interactive elements.
- */
-
-/* ---------------------------------- */
-/* Global Styles & Variables          */
-/* ---------------------------------- */
-
-/* Use CSS variables for easier theme management */
+/* ---------- COLOR PALETTE ---------- */
 :root {
-    --primary-color: #3498db;
-    /* Blue */
-    --primary-hover-color: #2980b9;
-    /* Darker Blue */
-    --secondary-color: #2c3e50;
-    /* Dark Grey Blue */
-    --background-light: #ecf0f1;
-    /* Very Light Grey */
-    --background-card: #ffffff;
-    /* White */
-    --text-color: #34495e;
-    /* Darker Text */
-    --text-light: #7f8c8d;
-    /* Light Grey Text */
-    --border-radius: 10px;
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --error-color: #e74c3c;
-    /* Red */
-    --error-background: #fde0df;
-    /* Light Red */
+    --bg: #f6f8fb;
+    --card: #ffffff;
+    --primary: #4f8cff;
+    --accent: #7bdcb5;
+    --text: #1f2937;
+    --soft: #6b7280;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
 }
 
-/* Universal box-sizing for easier layout calculations */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* DARK MODE */
+.dark-mode {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --primary: #60a5fa;
+    --accent: #34d399;
+    --text: #f1f5f9;
+    --soft: #94a3b8;
 }
 
-/* Body styles: sets basic font, background, and centers content */
+/* ---------- GLOBAL ---------- */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: var(--background-light);
-    color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    /* Center horizontally */
-    align-items: center;
-    /* Center vertically */
-    min-height: 100vh;
-    /* Ensure body takes at least full viewport height */
-    line-height: 1.6;
+    font-family: system-ui, -apple-system, Segoe UI;
+    background: var(--bg);
+    color: var(--text);
+    transition: .3s;
 }
 
-/* ---------------------------------- */
-/* Container & Headings               */
-/* ---------------------------------- */
-
-/* Main container for the application content */
-.container {
-    background-color: var(--background-card);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    padding: 30px;
-    max-width: 600px;
-    /* Max width for a pleasant reading experience */
-    width: 100%;
-    text-align: center;
+.app {
+    max-width: 1100px;
     margin: auto;
-    /* Ensures centering if flexbox not fully used or on smaller screens */
+    padding: 40px 20px;
 }
 
-/* Main heading style */
-h1 {
-    color: var(--secondary-color);
-    margin-bottom: 15px;
-    font-size: 2.2em;
-    font-weight: 600;
-}
-
-/* Description paragraph below the main heading */
-.description {
-    font-size: 1.1em;
-    color: var(--text-light);
+/* ---------- HEADER ---------- */
+header {
+    text-align: center;
     margin-bottom: 30px;
 }
 
-/* ---------------------------------- */
-/* Button Styling                     */
-/* ---------------------------------- */
+.subtitle {
+    color: var(--soft);
+}
 
-#get-info-button {
-    background-color: var(--primary-color);
-    color: white;
+/* ---------- BUTTON ---------- */
+.main-btn {
+    display: block;
+    margin: 20px auto 40px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     border: none;
-    border-radius: 5px;
-    padding: 12px 25px;
-    font-size: 1.1em;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: 40px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    /* Smooth transitions */
-    margin-bottom: 30px;
-    outline: none;
-    /* Remove outline on focus for aesthetics */
+    box-shadow: var(--shadow);
+    transition: .25s;
 }
 
-#get-info-button:hover {
-    background-color: var(--primary-hover-color);
-    transform: translateY(-2px);
-    /* Slight lift effect on hover */
+.main-btn:hover {
+    transform: translateY(-3px);
 }
 
-#get-info-button:active {
-    transform: translateY(0);
-    /* Press down effect on click */
+/* ---------- GRID LAYOUT ---------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
-/* ---------------------------------- */
-/* Info Cards Styling                 */
-/* ---------------------------------- */
+/* Mobile portrait */
+@media(max-width:700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
 
-.info-card {
-    background-color: var(--background-light);
-    /* Light background for cards */
-    border-radius: var(--border-radius);
+/* ---------- CARD ---------- */
+.card {
+    background: var(--card);
     padding: 20px;
-    margin-bottom: 20px;
-    /* Space between cards */
-    text-align: left;
-    border: 1px solid #e0e0e0;
-    /* Subtle border */
+    border-radius: 16px;
+    box-shadow: var(--shadow);
 }
 
-.info-card h2 {
-    color: var(--primary-color);
+.card h2 {
     margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.4em;
-    border-bottom: 1px solid #e0e0e0;
-    /* Separator for heading */
-    padding-bottom: 8px;
 }
 
-.info-card p {
-    font-size: 1em;
-    color: var(--text-color);
-    margin: 5px 0;
-}
-
-/* ---------------------------------- */
-/* Flag Styling                       */
-/* ---------------------------------- */
-
+/* ---------- FLAG ---------- */
 .flag-icon {
     width: 40px;
-    /* Standard flag width */
-    height: auto;
-    /* Maintain aspect ratio */
-    vertical-align: middle;
-    /* Align with text */
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    /* Subtle border for flags */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
+    margin-bottom: 8px;
 }
 
-/* ---------------------------------- */
-/* Error Message Styling              */
-/* ---------------------------------- */
-
-.error-message {
-    color: var(--error-color);
-    background-color: var(--error-background);
-    border: 1px solid var(--error-color);
-    padding: 10px;
-    border-radius: var(--border-radius);
-    margin-top: 25px;
-    display: none;
-    /* Hidden by default */
-    font-weight: bold;
-    text-align: center;
-    box-shadow: var(--box-shadow);
-}
-
-/* ---------------------------------- */
-/* Responsive Adjustments             */
-/* ---------------------------------- */
-
-@media (max-width: 600px) {
-    body {
-        padding: 15px;
-    }
-
-    .container {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-
-    .description {
-        font-size: 1em;
-    }
-
-    #get-info-button {
-        padding: 10px 20px;
-        font-size: 1em;
-    }
-
-    .info-card h2 {
-        font-size: 1.2em;
-    }
-}
-
+/* ---------- LANDMARK ---------- */
 .landmark-img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: 10px;
+}
+
+/* ---------- ERROR ---------- */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ---------- TOGGLE SWITCH ---------- */
+.toggle-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.switch input {
     display: none;
 }
 
-.toggle {
-    display: block;
-    margin-bottom: 15px;
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ccc;
+    border-radius: 34px;
+    transition: .3s;
 }
 
-.dark-mode {
-    background: #1e1e1e;
-    color: white;
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
 }
 
-.dark-mode .container {
-    background: #2b2b2b;
+input:checked+.slider {
+    background: var(--primary);
 }
 
-.dark-mode .info-card {
-    background: #3a3a3a;
+input:checked+.slider:before {
+    transform: translateX(24px);
 }
