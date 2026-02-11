@@ -126,15 +126,29 @@ document.addEventListener('DOMContentLoaded', () => {
 // -----------------------------
 // TEXT TO SPEECH
 // -----------------------------
-speakBtn.addEventListener("click", () => {
+// -----------------------------
+// TEXT TO SPEECH
+// -----------------------------
+if (speakBtn) {
 
-    const text = greetingElement.textContent;
-    if (!text) return;
+    speakBtn.addEventListener("click", () => {
 
-    const utterance = new SpeechSynthesisUtterance(text);
+        const text = greetingElement.textContent.trim();
 
-    // Try to match language
-    utterance.lang = navigator.language || "en-US";
+        if (!text) {
+            alert("No greeting to speak yet!");
+            return;
+        }
 
-    speechSynthesis.speak(utterance);
+        // Stop any current speech
+        speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+
+        speechSynthesis.speak(utterance);
+    });
+
+}
 });
+
