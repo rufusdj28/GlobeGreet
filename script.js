@@ -14,53 +14,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
 
     // -----------------------------
-    // Greeting fallback dictionary
+    // Error display helper
     // -----------------------------
-    const greetingsByCountry = {
-        'IN': 'Namaste!',
-        'US': 'Hello!',
-        'FR': 'Bonjour!',
-        'DE': 'Guten Tag!',
-        'JP': 'Konnichiwa!',
-        'ES': 'Hola!'
-    };
-
     function displayError(msg) {
         errorMessageElement.textContent = msg;
         errorMessageElement.style.display = "block";
     }
 
     // -----------------------------
-    // Wikipedia City Description
+    // Wikipedia fetch (single call)
     // -----------------------------
-    async function getCityInfo(city) {
+    async function getWikiData(city) {
         try {
             const res = await fetch(
                 `https://en.wikipedia.org/api/rest_v1/page/summary/${city}`
             );
             if (!res.ok) return null;
-            const data = await res.json();
-            return data.extract;
-        } catch {
-            return null;
-        }
-    }
-
-    // -----------------------------
-    // Landmark + Image
-    // -----------------------------
-    async function getLandmark(city) {
-        try {
-            const res = await fetch(
-                `https://en.wikipedia.org/api/rest_v1/page/summary/${city}`
-            );
-            if (!res.ok) return null;
-            const data = await res.json();
-
-            return {
-                title: data.title,
-                image: data.thumbnail ? data.thumbnail.source : null
-            };
+            return await res.json();
         } catch {
             return null;
         }
@@ -72,9 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     async function getLocationAndGreeting() {
 
         errorMessageElement.style.display = "none";
+
+        // Reset UI
+        landmarkElement.textContent = "";
         landmarkImg.style.display = "none";
+        landmarkImg.src = "";
 
         try {
+
+            // 1️⃣ Get location
             const response = await fetch("https://ipapi.co/json/");
             const loc = await response.json();
 
@@ -89,45 +65,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
             countryFlagElement.style.display = "inline-block";
 
-            const greeting = greetingsByCountry[code] || "Hello!";
-            greetingElement.textContent = greeting;
+            const greetRes = await fetch(
+                `http://127.0.0.1:5000/greet?lat=${loc.latitude}&lon=${loc.longitude}`
+            );
 
-            // City description
-            const desc = await getCityInfo(city);
-            cultureElement.textContent =
-                desc || `You're in ${city}. Explore local culture!`;
 
-            // Landmark
-            const landmark = await getLandmark(city);
-            if (landmark) {
+            const greetData = await greetRes.json();
+            greetingElement.textContent = greetData.message;
+
+            // 3️⃣ Wikipedia culture + landmark
+            const wiki = await getWikiData(city);
+
+            if (wiki) {
+                cultureElement.textContent =
+                    wiki.extract || `You're in ${city}. Explore!`;
+
                 landmarkElement.textContent =
-                    `Famous place: ${landmark.title}`;
+                    `Famous place: ${wiki.title}`;
 
-                if (landmark.image) {
-                    landmarkImg.src = landmark.image;
+                if (wiki.thumbnail) {
+                    landmarkImg.src = wiki.thumbnail.source;
                     landmarkImg.style.display = "block";
                 }
+            } else {
+                cultureElement.textContent =
+                    `You're in ${city}. Explore local culture!`;
             }
 
         } catch (err) {
-            displayError("Failed to fetch location data");
+            displayError("Failed to fetch location or backend data");
         }
     }
 
+    // Button click
     getInfoButton.addEventListener('click', getLocationAndGreeting);
 
     // -----------------------------
-    // Dark Mode
+    // Dark Mode Safe Setup
     // -----------------------------
-    darkModeToggle.addEventListener('change', () => {
-        body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode',
-            body.classList.contains('dark-mode'));
-    });
+    if (darkModeToggle) {
 
-    if (localStorage.getItem('darkMode') === 'true') {
-        body.classList.add('dark-mode');
-        darkModeToggle.checked = true;
+        darkModeToggle.addEventListener('change', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem(
+                'darkMode',
+                body.classList.contains('dark-mode')
+            );
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
     }
 
 });
