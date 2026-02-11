@@ -165,3 +165,6 @@ if __name__ == '__main__':
     # like Gunicorn or uWSGI.
     print("Starting Flask app. Access the API at http://127.0.0.1:5000/greet?lat=<latitude>&lon=<longitude>")
     app.run(debug=True) # debug=True enables reloader and debugger
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
