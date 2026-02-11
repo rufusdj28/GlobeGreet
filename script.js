@@ -9,11 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessageElement = document.getElementById('error-message');
     const getInfoButton = document.getElementById('get-info-button');
     const countryFlagElement = document.getElementById('country-flag');
+    const speakBtn = document.getElementById('speak-btn');
 
     const darkModeToggle = document.getElementById('checkbox');
     const body = document.body;
-    const speakBtn = document.getElementById('speak-btn');
-
 
     // -----------------------------
     // Error display helper
@@ -45,14 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         errorMessageElement.style.display = "none";
 
-        // Reset UI
         landmarkElement.textContent = "";
         landmarkImg.style.display = "none";
         landmarkImg.src = "";
 
         try {
 
-            // 1️⃣ Get location
+            // Get location
             const response = await fetch("https://ipapi.co/json/");
             const loc = await response.json();
 
@@ -67,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `https://flagcdn.com/w40/${code.toLowerCase()}.png`;
             countryFlagElement.style.display = "inline-block";
 
-            // 2️⃣ Call LIVE backend on Render
+            // Call LIVE backend
             const greetRes = await fetch(
                 `https://globegreet-backend.onrender.com/greet?lat=${loc.latitude}&lon=${loc.longitude}`
             );
@@ -75,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const greetData = await greetRes.json();
             greetingElement.textContent = greetData.message;
 
-            // 3️⃣ Wikipedia culture + landmark
+            // Wikipedia info
             const wiki = await getWikiData(city);
 
             if (wiki) {
@@ -99,11 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Button click
     getInfoButton.addEventListener('click', getLocationAndGreeting);
 
     // -----------------------------
-    // Dark Mode
+    // DARK MODE
     // -----------------------------
     if (darkModeToggle) {
 
@@ -121,57 +118,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // -----------------------------
+    // TEXT TO SPEECH
+    // -----------------------------
+    if (speakBtn) {
+
+        let voices = [];
+
+        speechSynthesis.onvoiceschanged = () => {
+            voices = speechSynthesis.getVoices();
+        };
+
+        speakBtn.addEventListener("click", () => {
+
+            const text = greetingElement.textContent.trim();
+
+            if (!text) {
+                alert("Greeting not ready yet!");
+                return;
+            }
+
+            if (!('speechSynthesis' in window)) {
+                alert("Speech not supported");
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            if (voices.length > 0) {
+                utterance.voice =
+                    voices.find(v => v.lang.startsWith("en")) ||
+                    voices[0];
+            }
+
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            speechSynthesis.cancel();
+            speechSynthesis.speak(utterance);
+        });
+    }
+
 });
-
-// -----------------------------
-// TEXT TO SPEECH
-// -----------------------------
-// -----------------------------
-// TEXT TO SPEECH
-// -----------------------------
-// -----------------------------
-// TEXT TO SPEECH (Robust)
-// -----------------------------
-// -----------------------------
-// TEXT TO SPEECH (FINAL FIX)
-// -----------------------------
-
-let availableVoices = [];
-
-// Load voices when ready
-speechSynthesis.onvoiceschanged = () => {
-    availableVoices = speechSynthesis.getVoices();
-};
-
-if (speakBtn) {
-
-    speakBtn.addEventListener("click", () => {
-
-        const text = greetingElement.textContent.trim();
-
-        if (!text) {
-            alert("Greeting not ready yet!");
-            return;
-        }
-
-        const utterance = new SpeechSynthesisUtterance(text);
-
-        // Choose a decent voice
-        if (availableVoices.length > 0) {
-
-            const preferred =
-                availableVoices.find(v => v.lang.startsWith("en")) ||
-                availableVoices[0];
-
-            utterance.voice = preferred;
-        }
-
-        utterance.volume = 1;
-        utterance.rate = 1;
-        utterance.pitch = 1;
-
-        speechSynthesis.cancel();
-        speechSynthesis.speak(utterance);
-    });
-
-}

@@ -178,3 +178,7 @@ input:checked+.slider:before {
 .speak-btn:hover {
     opacity: .85;
 }
+
+.speak-btn:active {
+    transform: scale(0.92);
+}
