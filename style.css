@@ -182,3 +182,25 @@ input:checked+.slider:before {
 .speak-btn:active {
     transform: scale(0.92);
 }
+
+/* ===== Speak Button Feedback ===== */
+
+.speak-btn {
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Hover glow */
+.speak-btn:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Click animation */
+.speak-btn:active {
+    transform: scale(0.9);
+}
